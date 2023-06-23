@@ -38,5 +38,26 @@ namespace EmailApp.Controllers
 
             return Ok();
         }
+
+
+        [HttpPost]
+        [Route("Gmail")]
+        public async Task<IActionResult> SendEmail2(EmailDto request)
+        {
+            //var email = new MimeMessage();
+            //email.From.Add(MailboxAddress.Parse("mozelle.kuhlman48@ethereal.email"));
+            //email.To.Add(MailboxAddress.Parse("mozelle.kuhlman48@ethereal.email"));
+            //email.Subject = "Test Email Subject";
+            //email.Body = new TextPart(TextFormat.Html) { Text = body };
+
+            //using var smtp = new SmtpClient();  
+            //smtp.Connect("smtp.ethereal.email",587,SecureSocketOptions.StartTls);
+            //smtp.Authenticate("mozelle.kuhlman48@ethereal.email", "vUWJ5Z4C1SS1U3Qm2Q");
+            //smtp.Send(email);
+            //smtp.Disconnect(true);
+            _emailService.SendEmail2(request);
+
+            return Ok();
+        }
     }
 }

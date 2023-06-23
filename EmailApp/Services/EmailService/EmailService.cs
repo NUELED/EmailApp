@@ -29,5 +29,32 @@ namespace EmailApp.Services.EmailService
             smtp.Send(email);
             smtp.Disconnect(true);
         }
+
+
+
+        public async Task SendEmail2(EmailDto request)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse("smartedem91@gmail.com"));
+            email.To.Add(MailboxAddress.Parse(request.To));
+            email.Subject = request.Subject;
+            email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
+
+            //using var smtp = new SmtpClient();
+            //smtp.Connect(_config.GetSection("EmailHost2").Value, 587, SecureSocketOptions.StartTls);
+            //smtp.Authenticate(_config.GetSection("EmailUserName2").Value, _config.GetSection("EmailPassword2").Value);
+            //smtp.Send(email);
+            //smtp.Disconnect(true);
+
+
+            using (var emailClient = new SmtpClient())
+            {
+                emailClient.Connect("smtp.gmail.com", 465, MailKit.Security.SecureSocketOptions.SslOnConnect);
+                emailClient.Authenticate("smartedem91@gmail.com", "bltapnlyvylilhye");
+                emailClient.Send(email);
+                emailClient.Disconnect(true);
+            }
+        }
+
     }
 }
